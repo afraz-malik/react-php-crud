@@ -6,10 +6,17 @@ export const getUser = () => (dispatch) => {
   fetch(`${phpUrl}/php-crud/get_users.php`)
     .then((data) => data.json())
     .then((data) => {
-      console.log(data)
+      let fm = []
+      for (let x = 0; x < data.fm.length; x++) {
+        fm.push({ ...data.fm[x], qualification: [] })
+        for (let y = 0; y < data.qual.length; y++) {
+          if (data.fm[x].fm_id === data.qual[y].fm_id)
+            fm[x].qualification.push(data.qual[y])
+        }
+      }
       dispatch({
         type: 'FETCH_USER_SUCCESS',
-        payload: data.users.reverse(),
+        payload: fm,
       })
       toast.success('Fetching Success...')
     })
@@ -21,6 +28,7 @@ export const getUser = () => (dispatch) => {
     })
 }
 export const addUser = (user) => (dispatch) => {
+  console.log(user)
   dispatch({ type: 'ADD_USER_IN_DB_START' })
   fetch(`${phpUrl}/php-crud/add_user.php`, {
     method: 'POST',
@@ -37,9 +45,17 @@ export const addUser = (user) => (dispatch) => {
       fetch(`${phpUrl}/php-crud/get_users.php`)
         .then((data) => data.json())
         .then((data) => {
+          let fm = []
+          for (let x = 0; x < data.fm.length; x++) {
+            fm.push({ ...data.fm[x], qualification: [] })
+            for (let y = 0; y < data.qual.length; y++) {
+              if (data.fm[x].fm_id === data.qual[y].fm_id)
+                fm[x].qualification.push(data.qual[y])
+            }
+          }
           dispatch({
             type: 'FETCH_USER_SUCCESS',
-            payload: data.users.reverse(),
+            payload: fm,
           })
         })
         .catch((err) => {
@@ -57,6 +73,7 @@ export const addUser = (user) => (dispatch) => {
     })
 }
 export const deleteUser = (user) => (dispatch) => {
+  console.log(user)
   dispatch({ type: 'DELETE_USER' })
   fetch(`${phpUrl}/php-crud/delete_user.php`, {
     method: 'POST',
@@ -74,11 +91,17 @@ export const deleteUser = (user) => (dispatch) => {
       fetch(`${phpUrl}/php-crud/get_users.php`)
         .then((data) => data.json())
         .then((data) => {
-          console.log(res)
-
+          let fm = []
+          for (let x = 0; x < data.fm.length; x++) {
+            fm.push({ ...data.fm[x], qualification: [] })
+            for (let y = 0; y < data.qual.length; y++) {
+              if (data.fm[x].fm_id === data.qual[y].fm_id)
+                fm[x].qualification.push(data.qual[y])
+            }
+          }
           dispatch({
             type: 'FETCH_USER_SUCCESS',
-            payload: data.users.reverse(),
+            payload: fm,
           })
         })
         .catch((err) => {
@@ -118,11 +141,17 @@ export const updateUser = (payload) => (dispatch) => {
       fetch(`${phpUrl}/php-crud/get_users.php`)
         .then((data) => data.json())
         .then((data) => {
-          console.log(data)
-
+          let fm = []
+          for (let x = 0; x < data.fm.length; x++) {
+            fm.push({ ...data.fm[x], qualification: [] })
+            for (let y = 0; y < data.qual.length; y++) {
+              if (data.fm[x].fm_id === data.qual[y].fm_id)
+                fm[x].qualification.push(data.qual[y])
+            }
+          }
           dispatch({
             type: 'FETCH_USER_SUCCESS',
-            payload: data.users.reverse(),
+            payload: fm,
           })
         })
         .catch((err) => {

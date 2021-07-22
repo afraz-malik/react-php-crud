@@ -3,13 +3,18 @@ import './Form.css'
 import QualificationGen from './QualificationGen'
 import { connect } from 'react-redux'
 import { updateUser, cancelUpdate, addUser } from '../../redux/action'
+import update from 'react-addons-update'
 
 const mapDispatchToProps = (dispatch) => ({
   addUser: (user) => dispatch(addUser(user)),
   updateUser: (user) => dispatch(updateUser(user)),
   cancelUpdate: () => dispatch(cancelUpdate()),
 })
-
+const initialQual = {
+  institute: '',
+  degree: '',
+  year: '',
+}
 class Form extends React.Component {
   constructor(props) {
     super(props)
@@ -18,76 +23,83 @@ class Form extends React.Component {
         name: this.props.oldUser.fm_name,
         salary: this.props.oldUser.fm_salary,
         address: this.props.oldUser.fm_address,
-        institute: this.props.oldUser.institute_attended,
         designation: this.props.oldUser.fm_designation,
-        degree: this.props.oldUser.degree_tittle,
-        year: this.props.oldUser.year_of_passing,
+        qualification: [
+          {
+            institute: this.props.oldUser.institute_attended,
+            degree: this.props.oldUser.degree_tittle,
+            year: this.props.oldUser.year_of_passing,
+          },
+        ],
+        counter: 1,
       }
     } else {
       this.state = {
         name: '',
         salary: '',
         address: '',
-        institute: '',
         designation: '',
-        degree: '',
-        year: '',
+        qualification: [initialQual],
         counter: 1,
       }
-      // this.state = {
-      //   credentials: [
-      //     {
-      //       name: '',
-      //       salary: '',
-      //       address: '',
-      //       institute: '',
-      //       designation: '',
-      //       degree: '',
-      //       year: '',
-      //     },
-      //   ],
-      // }
     }
   }
-  handleChange = (event, value = 0) => {
+  handleChange = (event) => {
     this.setState({ ...this.state, [event.target.name]: event.target.value })
-    // this.setState({
-    //   credentials: [
-    //     {
-    //       ...this.state.credentials[0],
-    //       [event.target.name]: event.target.value,
-    //     },
-    //   ],
-    // })
-    // console.log(this.state.credentials)
+  }
+  handleQual = (event, index) => {
+    this.setState(
+      update(this.state, {
+        qualification: {
+          [index]: {
+            $set: {
+              ...this.state.qualification[index],
+              [event.target.name]: event.target.value,
+            },
+          },
+        },
+      })
+    )
   }
   handleSubmit = (event) => {
     event.preventDefault()
+    // console.log(this.state)
+
     this.props.oldUser
       ? this.props.updateUser({ old: this.props.oldUser, new: this.state })
       : this.props.addUser(this.state)
-    this.setState({
-      name: '',
-      salary: '',
-      address: '',
-      institute: '',
-      designation: '',
-      degree: '',
-      year: '',
-    })
+    // this.setState({
+    //   name: '',
+    //   salary: '',
+    //   address: '',
+    //   designation: '',
+    //   qualification: [initialQual],
+    //   counter: 1,
+    // })
   }
   cancelUpdate = () => {
-    this.props.cancelUpdate()
-    this.props.toggleDatabase()
+    if (this.props.oldUser) {
+      this.props.cancelUpdate()
+      this.props.toggleDatabase()
+    } else {
+      this.setState({
+        name: '',
+        salary: '',
+        address: '',
+        designation: '',
+        qualification: [initialQual],
+        counter: 1,
+      })
+    }
   }
   addCounter = () => {
-    this.setState({
-      counter: this.state.counter + 1,
-    })
+    this.setState({ counter: this.state.counter + 1 })
+    this.setState((prevState) => ({
+      qualification: [...prevState.qualification, initialQual],
+    }))
   }
 
   render() {
-    // console.log(this.state)
     return (
       <div className="container">
         <form method="post" onSubmit={this.handleSubmit}>
@@ -103,7 +115,7 @@ class Form extends React.Component {
                 name="name"
                 placeholder="Type your name here ..."
                 value={this.state.name}
-                onChange={(e) => this.handleChange(e, 1)}
+                onChange={this.handleChange}
               />
               <label htmlFor="address">
                 <i className="fa fa-address-card-o"></i> Address
@@ -148,10 +160,10 @@ class Form extends React.Component {
               {[...Array(this.state.counter)].map((i, j) => (
                 <QualificationGen
                   key={j}
-                  institute={this.state.institute}
-                  degree={this.state.degree}
-                  year={this.state.year}
-                  handleChange={this.handleChange}
+                  institute={this.state.qualification[j].institute}
+                  degree={this.state.qualification[j].degree}
+                  year={this.state.qualification[j].year}
+                  handleQual={this.handleQual}
                   counter={j}
                 />
               ))}
@@ -178,9 +190,22 @@ class Form extends React.Component {
             </span>
           </label>
           {!this.props.oldUser ? (
-            <input type="submit" value={`Save to database`} className="btn " />
-          ) : (
             <div class="cancel">
+              <input
+                type="submit"
+                value={`Save In database`}
+                className="btn "
+              />
+              <button
+                className="btn cancelbtn"
+                type="button"
+                onClick={() => this.cancelUpdate()}
+              >
+                Clear All
+              </button>
+            </div>
+          ) : (
+            <div className="cancel">
               <input
                 type="submit"
                 value={`Update In database`}

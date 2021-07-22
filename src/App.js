@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => ({
   users: state.userReducer.users,
+  qual: state.userReducer.qual,
   oldUser: state.userReducer.oldUser,
 })
 const mapDispatchToProps = (dispatch) => ({

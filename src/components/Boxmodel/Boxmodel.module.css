@@ -39,7 +39,7 @@ th {
   color: white;
 }
 td:nth-child(7) {
-  text-align: center;
+  /* text-align: center; */
 }
 .btn {
   background-color: DodgerBlue;
@@ -58,4 +58,8 @@ td:nth-child(7) {
 }
 .btn:hover {
   background-color: RoyalBlue;
+}
+.qual {
+  /* border-bottom: 1px solid black; */
+  /* text-align: center; */
 }

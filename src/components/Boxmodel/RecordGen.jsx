@@ -25,9 +25,23 @@ const RecordGen = ({ counter, user, toggleForm }) => {
       <td>{user.fm_address}</td>
       <td>{user.fm_designation}</td>
       <td>{user.fm_salary}</td>
-      <td>{user.degree_tittle}</td>
-      <td>{user.year_of_passing}</td>
-      <td>{user.institute_attended}</td>
+      <td>
+        {user.qualification.map((qual, j) => {
+          return <QualGen key={j} counter={j} qual={qual.degree_tittle} />
+        })}
+      </td>
+      <td>
+        {' '}
+        {user.qualification.map((qual, j) => {
+          return <QualGen key={j} counter={j} qual={qual.year_of_passing} />
+        })}
+      </td>
+      <td>
+        {' '}
+        {user.qualification.map((qual, j) => {
+          return <QualGen key={j} counter={j} qual={qual.institute_attended} />
+        })}
+      </td>
       <td>
         <button className={BoxmodelCss.btn} onClick={() => triggerDelete()}>
           <i className="fa fa-trash"></i>
@@ -37,6 +51,14 @@ const RecordGen = ({ counter, user, toggleForm }) => {
         </button>
       </td>
     </tr>
+  )
+}
+
+export const QualGen = ({ qual, counter }) => {
+  return (
+    <div className={BoxmodelCss.qual}>
+      {counter + 1}. &emsp;{qual}
+    </div>
   )
 }
 

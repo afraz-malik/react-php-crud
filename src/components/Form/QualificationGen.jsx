@@ -1,13 +1,7 @@
 import React from 'react'
 import './Form.css'
 
-const QualificationGen = ({
-  institute,
-  handleChange,
-  degree,
-  year,
-  counter,
-}) => {
+const QualificationGen = ({ institute, degree, year, handleQual, counter }) => {
   return (
     <div>
       {counter > 0 ? <hr className="hr2" /> : null}
@@ -21,7 +15,7 @@ const QualificationGen = ({
           name="institute"
           placeholder="Type your institute here ..."
           value={institute}
-          onChange={handleChange}
+          onChange={(e) => handleQual(e, counter)}
         />
       </div>
       <div className="row">
@@ -36,7 +30,7 @@ const QualificationGen = ({
             name="degree"
             placeholder="Type your degree title here ..."
             value={degree}
-            onChange={handleChange}
+            onChange={(e) => handleQual(e, counter)}
           />
         </div>
         <div className="col-50">
@@ -50,7 +44,7 @@ const QualificationGen = ({
             name="year"
             placeholder="Type your year of passing here ..."
             value={year}
-            onChange={handleChange}
+            onChange={(e) => handleQual(e, counter)}
           />
         </div>
       </div>
