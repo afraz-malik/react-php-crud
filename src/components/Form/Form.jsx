@@ -11,34 +11,24 @@ const mapDispatchToProps = (dispatch) => ({
   cancelUpdate: () => dispatch(cancelUpdate()),
 })
 const initialQual = {
-  institute: '',
-  degree: '',
-  year: '',
+  institute_attended: '',
+  degree_tittle: '',
+  year_of_passing: '',
 }
 class Form extends React.Component {
   constructor(props) {
     super(props)
     if (this.props.oldUser) {
       this.state = {
-        name: this.props.oldUser.fm_name,
-        salary: this.props.oldUser.fm_salary,
-        address: this.props.oldUser.fm_address,
-        designation: this.props.oldUser.fm_designation,
-        qualification: [
-          {
-            institute: this.props.oldUser.institute_attended,
-            degree: this.props.oldUser.degree_tittle,
-            year: this.props.oldUser.year_of_passing,
-          },
-        ],
-        counter: 1,
+        ...this.props.oldUser,
+        counter: this.props.oldUser.qualification.length,
       }
     } else {
       this.state = {
-        name: '',
-        salary: '',
-        address: '',
-        designation: '',
+        fm_name: '',
+        fm_salary: '',
+        fm_address: '',
+        fm_designation: '',
         qualification: [initialQual],
         counter: 1,
       }
@@ -68,14 +58,14 @@ class Form extends React.Component {
     this.props.oldUser
       ? this.props.updateUser({ old: this.props.oldUser, new: this.state })
       : this.props.addUser(this.state)
-    // this.setState({
-    //   name: '',
-    //   salary: '',
-    //   address: '',
-    //   designation: '',
-    //   qualification: [initialQual],
-    //   counter: 1,
-    // })
+    this.setState({
+      fm_name: '',
+      fm_salary: '',
+      fm_address: '',
+      fm_designation: '',
+      qualification: [initialQual],
+      counter: 1,
+    })
   }
   cancelUpdate = () => {
     if (this.props.oldUser) {
@@ -83,10 +73,10 @@ class Form extends React.Component {
       this.props.toggleDatabase()
     } else {
       this.setState({
-        name: '',
-        salary: '',
-        address: '',
-        designation: '',
+        fm_name: '',
+        fm_salary: '',
+        fm_address: '',
+        fm_designation: '',
         qualification: [initialQual],
         counter: 1,
       })
@@ -100,6 +90,7 @@ class Form extends React.Component {
   }
 
   render() {
+    console.log(this.state.counter)
     return (
       <div className="container">
         <form method="post" onSubmit={this.handleSubmit}>
@@ -112,9 +103,9 @@ class Form extends React.Component {
               <input
                 type="text"
                 id="name"
-                name="name"
+                name="fm_name"
                 placeholder="Type your name here ..."
-                value={this.state.name}
+                value={this.state.fm_name}
                 onChange={this.handleChange}
               />
               <label htmlFor="address">
@@ -123,9 +114,9 @@ class Form extends React.Component {
               <input
                 type="text"
                 id="address"
-                name="address"
+                name="fm_address"
                 placeholder="Type your address here ..."
-                value={this.state.address}
+                value={this.state.fm_address}
                 onChange={this.handleChange}
               />
               <label htmlFor="designation">
@@ -134,9 +125,9 @@ class Form extends React.Component {
               <input
                 type="text"
                 id="designation"
-                name="designation"
+                name="fm_designation"
                 placeholder="Type your designation here ..."
-                value={this.state.designation}
+                value={this.state.fm_designation}
                 onChange={this.handleChange}
               />
               <label htmlFor="salary">
@@ -145,9 +136,9 @@ class Form extends React.Component {
               <input
                 type="text"
                 id="salary"
-                name="salary"
+                name="fm_salary"
                 placeholder="PKR"
-                value={this.state.salary}
+                value={this.state.fm_salary}
                 onChange={this.handleChange}
               />
             </div>
@@ -160,9 +151,11 @@ class Form extends React.Component {
               {[...Array(this.state.counter)].map((i, j) => (
                 <QualificationGen
                   key={j}
-                  institute={this.state.qualification[j].institute}
-                  degree={this.state.qualification[j].degree}
-                  year={this.state.qualification[j].year}
+                  institute_attended={
+                    this.state.qualification[j].institute_attended
+                  }
+                  degree_tittle={this.state.qualification[j].degree_tittle}
+                  year_of_passing={this.state.qualification[j].year_of_passing}
                   handleQual={this.handleQual}
                   counter={j}
                 />
@@ -190,7 +183,7 @@ class Form extends React.Component {
             </span>
           </label>
           {!this.props.oldUser ? (
-            <div class="cancel">
+            <div className="cancel">
               <input
                 type="submit"
                 value={`Save In database`}

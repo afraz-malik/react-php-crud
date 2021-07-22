@@ -11,19 +11,11 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $con = mysqli_connect('localhost', 'root', '','faculty');
 $data = json_decode(file_get_contents("php://input"));
 
-if ($conn->connect_error) {
-	die("Connection failed: " . $conn->connect_error);
- }
-   echo "Connected successfully";
-
-
-$sql = "DELETE FROM faculty_member WHERE fm_id = '$data->fm_id'";
-$sql1 = "DELETE FROM qualification WHERE q_id = '$data->q_id'";
+$sql = "DELETE FROM qualification WHERE fm_id = '$data->fm_id'";
+$sql1 = "DELETE FROM faculty_member WHERE fm_id = '$data->fm_id'";
 
 $rs = mysqli_query($con, $sql);
-$rs1 = mysqli_query($con, $sql1);
-
-
+$rs = mysqli_query($con, $sql1);
 
 if($rs)
 {

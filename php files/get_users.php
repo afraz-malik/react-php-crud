@@ -14,13 +14,17 @@ $con = mysqli_connect('localhost', 'root', '','faculty');
 
 
 
-
+// SELECT * FROM faculty_member INNER JOIN qualification ON faculty_member.fm_id = qualification.fm_id
 // $allUsers = mysqli_query($con, "SELECT * FROM `faculty_member`");
-$allUsers = mysqli_query($con, "SELECT * FROM faculty_member, qualification where faculty_member.fm_id = qualification.q_id");
+$fm = mysqli_query($con, "SELECT * FROM faculty_member");
+$qual = mysqli_query($con, "SELECT * FROM qualification");
 
 
-    $all_users = mysqli_fetch_all($allUsers, MYSQLI_ASSOC);
-    echo json_encode(["success" => 1, "users" => $all_users]);
+    $faculty_member = mysqli_fetch_all($fm, MYSQLI_ASSOC);
+    $qualification = mysqli_fetch_all($qual, MYSQLI_ASSOC);
+    // $qualification = mysqli_fetch_all($qal, MYSQLI_ASSOC);
+    echo json_encode(["fm" => $faculty_member, "qual" => $qualification ]);
+    // echo json_encode(["success" => 1, "users" => ]);
 
 
 ?>

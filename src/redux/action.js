@@ -119,10 +119,10 @@ export const deleteUser = (user) => (dispatch) => {
       dispatch({ type: 'DELETE_USER_FAILED', payload: err })
     })
 }
-export const oldUser = (oldUser) => ({
-  type: 'EDIT_USER',
-  payload: oldUser,
-})
+export const oldUser = (oldUser) => {
+  console.log(oldUser)
+  return { type: 'EDIT_USER', payload: oldUser }
+}
 export const updateUser = (payload) => (dispatch) => {
   dispatch({ type: 'UPDATE_USER' })
   fetch(`${phpUrl}/php-crud/update_user.php`, {
