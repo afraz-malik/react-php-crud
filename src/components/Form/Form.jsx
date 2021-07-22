@@ -56,7 +56,7 @@ class Form extends React.Component {
     // console.log(this.state)
 
     this.props.oldUser
-      ? this.props.updateUser({ old: this.props.oldUser, new: this.state })
+      ? this.props.updateUser(this.state)
       : this.props.addUser(this.state)
     this.setState({
       fm_name: '',
@@ -90,7 +90,6 @@ class Form extends React.Component {
   }
 
   render() {
-    console.log(this.state.counter)
     return (
       <div className="container">
         <form method="post" onSubmit={this.handleSubmit}>

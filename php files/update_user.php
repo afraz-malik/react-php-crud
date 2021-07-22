@@ -12,20 +12,39 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $con = mysqli_connect('localhost', 'root', '','faculty');
 $data = json_decode(file_get_contents("php://input"));
 // $year = $_POST['year']; 
-
+$qualificationarray = $data->qualification;
+$counter = 0;
 // database insert SQL code
-$old = $data->old;
-$new = $data->new;
+// $old = $data->old;
+// $new = $data->new;
 // echo json_encode(["success" => 1, "users" => $new->name]);
 // echo json_encode(["success" => 1, "users2" => $obj2]);
-$sql = "UPDATE `faculty_member` SET `fm_name` = '$new->name', `fm_address` = '$new->address', `fm_designation`='$new->designation', `fm_salary`='$new->salary' WHERE `fm_id`='$old->fm_id'";
 
-$sql1 = "UPDATE `qualification` SET `degree_tittle`='$new->degree', `year_of_passing` ='$new->year', `institute_attended`='$new->institute'WHERE `q_id`='$old->q_id'";
+if(!($data->fm_name == "")){
+	$rs = mysqli_query($con, "UPDATE `faculty_member` SET `fm_name` = '$data->fm_name', `fm_address` ='$data->fm_address', `fm_designation` ='$data->fm_designation', `fm_salary` ='$data->fm_salary' WHERE `fm_id`= '$data->fm_id'");
 
-$rs = mysqli_query($con, $sql);
-$rs1 = mysqli_query($con, $sql1);
+	for ($x = 0; $x < sizeof($qualificationarray); $x+=1) {
+		$degree = $qualificationarray[$x]->degree_tittle;
+		$year = $qualificationarray[$x]->year_of_passing;
+		$institute = $qualificationarray[$x]->institute_attended;
+		$id = $qualificationarray[$x]->q_id;
+	
+		$rs2 = mysqli_query($con, "UPDATE `qualification` SET `degree_tittle`='$degree', `year_of_passing` ='$year' ,`institute_attended`='$institute' WHERE `q_id` = '$id'");
+		$counter = $counter +1;
+}
+}
 
-if($rs)
+
+
+// $sql = "UPDATE `faculty_member` SET `fm_name` = '$new->name', `fm_address` = '$new->address', `fm_designation`='$new->designation', `fm_salary`='$new->salary' WHERE `fm_id`='$old->fm_id'";
+
+// $sql1 = "UPDATE `qualification` SET `degree_tittle`='$new->degree', `year_of_passing` ='$new->year', `institute_attended`='$new->institute'WHERE `q_id`='$old->q_id'";
+
+
+// $rs = mysqli_query($con, $sql);
+// $rs1 = mysqli_query($con, $sql1);
+
+if($rs2)
 {
 	echo json_encode(["success" => 1, "msg" => "User Inserted."]);
 

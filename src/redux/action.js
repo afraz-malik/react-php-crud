@@ -124,6 +124,7 @@ export const oldUser = (oldUser) => {
   return { type: 'EDIT_USER', payload: oldUser }
 }
 export const updateUser = (payload) => (dispatch) => {
+  console.log(payload)
   dispatch({ type: 'UPDATE_USER' })
   fetch(`${phpUrl}/php-crud/update_user.php`, {
     method: 'POST',
