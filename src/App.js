@@ -15,6 +15,8 @@ const mapStateToProps = (state) => ({
   users: state.userReducer.users,
   qual: state.userReducer.qual,
   oldUser: state.userReducer.oldUser,
+  isLoading: state.userReducer.isLoading,
+  success: state.userReducer.success,
 })
 const mapDispatchToProps = (dispatch) => ({
   getUser: () => dispatch(getUser()),
@@ -54,7 +56,7 @@ class App extends React.Component {
 
   render() {
     const { form, database, searchValue } = this.state
-    const { oldUser, users } = this.props
+    const { oldUser, users, isLoading, success } = this.props
     // console.log(users[0].qualification[0].degree_tittle)
     const filteredUsers = users.filter((users) => {
       return (
@@ -96,10 +98,19 @@ class App extends React.Component {
             />
 
             {database ? (
-              <Boxmodel toggleForm={this.toggleForm} users={filteredUsers} />
+              <Boxmodel
+                toggleForm={this.toggleForm}
+                users={filteredUsers}
+                isLoading={isLoading}
+              />
             ) : null}
             {form ? (
-              <Form oldUser={oldUser} toggleDatabase={this.toggleDatabase} />
+              <Form
+                oldUser={oldUser}
+                toggleDatabase={this.toggleDatabase}
+                isLoading={isLoading}
+                success={success}
+              />
             ) : null}
           </div>
         </div>

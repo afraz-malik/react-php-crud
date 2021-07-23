@@ -1,11 +1,11 @@
 import toast from 'cogo-toast'
-
-const phpUrl = 'http://localhost/Faculty Directory/php files/'
-// const phpUrl = 'http://192.168.10.7'
+// const server = 'http://localhost/faculty_directory/php_files/'
+const server = 'https://fathomless-sea-03661.herokuapp.com/'
 
 export const getUser = () => (dispatch) => {
+  toast.loading('Connecting to database ...')
   dispatch({ type: 'FETCH_USER_START' })
-  fetch(`${phpUrl}get_users.php`)
+  fetch(`${server}get_users.php`)
     .then((data) => data.json())
     .then((data) => {
       let fm = []
@@ -29,8 +29,9 @@ export const getUser = () => (dispatch) => {
     })
 }
 export const addUser = (user) => (dispatch) => {
+  toast.loading('Adding information in database ...')
   dispatch({ type: 'ADD_USER_IN_DB_START' })
-  fetch(`${phpUrl}add_user.php`, {
+  fetch(`${server}add_user.php`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -41,7 +42,7 @@ export const addUser = (user) => (dispatch) => {
     .then((res) => {
       toast.success('Successfully added in Database')
       dispatch({ type: 'ADD_USER_IN_DB_SUCCESS', payload: res })
-      fetch(`${phpUrl}get_users.php`)
+      fetch(`${server}get_users.php`)
         .then((data) => data.json())
         .then((data) => {
           let fm = []
@@ -70,8 +71,9 @@ export const addUser = (user) => (dispatch) => {
     })
 }
 export const deleteUser = (user) => (dispatch) => {
+  toast.loading('Deleting information from database...')
   dispatch({ type: 'DELETE_USER' })
-  fetch(`${phpUrl}delete_user.php`, {
+  fetch(`${server}delete_user.php`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -83,7 +85,7 @@ export const deleteUser = (user) => (dispatch) => {
       dispatch({ type: 'DELETE_USER_SUCCESS', payload: res })
       toast.success('Successfully Deleted')
       dispatch({ type: 'FETCH_USER_START' })
-      fetch(`${phpUrl}get_users.php`)
+      fetch(`${server}get_users.php`)
         .then((data) => data.json())
         .then((data) => {
           let fm = []
@@ -116,8 +118,9 @@ export const oldUser = (oldUser) => {
   return { type: 'EDIT_USER', payload: oldUser }
 }
 export const updateUser = (payload) => (dispatch) => {
-  dispatch({ type: 'UPDATE_USER' })
-  fetch(`${phpUrl}update_user.php`, {
+  toast.loading('Updating informtion in database...')
+  dispatch({ type: 'UPDATE_USER_START' })
+  fetch(`${server}update_user.php`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -130,7 +133,7 @@ export const updateUser = (payload) => (dispatch) => {
       dispatch({ type: 'UPDATE_USER_SUCCESS', payload: res })
       toast.success('Information Updated')
       dispatch({ type: 'FETCH_USER_START' })
-      fetch(`${phpUrl}get_users.php`)
+      fetch(`${server}get_users.php`)
         .then((data) => data.json())
         .then((data) => {
           let fm = []

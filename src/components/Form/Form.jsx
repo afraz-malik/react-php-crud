@@ -7,6 +7,7 @@ import { updateUser, cancelUpdate, addUser } from '../../redux/action'
 import { connect } from 'react-redux'
 // Components
 import QualificationGen from './QualificationGen'
+import { Spinner } from '../spinner/spinner'
 
 const mapDispatchToProps = (dispatch) => ({
   addUser: (user) => dispatch(addUser(user)),
@@ -81,8 +82,7 @@ class Form extends React.Component {
     this.props.oldUser
       ? this.props.updateUser(this.state)
       : this.props.addUser(this.state)
-    this.props.toggleDatabase()
-    this.setState(initialState)
+    console.log(this.props.success)
   }
   cancelUpdate = () => {
     if (this.props.oldUser) {
@@ -108,6 +108,10 @@ class Form extends React.Component {
     }
   }
   render() {
+    if (this.props.success) {
+      this.props.toggleDatabase()
+      this.setState(initialState)
+    }
     return (
       <div className="container">
         <form method="post" onSubmit={this.handleSubmit}>
@@ -219,6 +223,7 @@ class Form extends React.Component {
             </button>
           </div>
         </form>
+        {this.props.isLoading ? <Spinner /> : null}
       </div>
     )
   }

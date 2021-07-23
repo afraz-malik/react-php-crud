@@ -2,8 +2,9 @@ import React from 'react'
 import BoxmodelCss from './Boxmodel.module.css'
 // Components
 import RecordGen from './RecordGen'
+import { Spinner } from '../spinner/spinner'
 
-const Boxmodel = ({ users, toggleForm }) => {
+const Boxmodel = ({ users, toggleForm, isLoading }) => {
   return (
     <div className={BoxmodelCss.body}>
       <table>
@@ -27,6 +28,7 @@ const Boxmodel = ({ users, toggleForm }) => {
           />
         ))}
       </table>
+      {isLoading ? <Spinner /> : null}
     </div>
   )
 }
