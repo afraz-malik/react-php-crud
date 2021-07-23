@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/afraz-malik/faculty-directory/static/css/main.e33946a1.chunk.css",
+    "main.js": "/afraz-malik/faculty-directory/static/js/main.8d9b941f.chunk.js",
+    "main.js.map": "/afraz-malik/faculty-directory/static/js/main.8d9b941f.chunk.js.map",
+    "runtime-main.js": "/afraz-malik/faculty-directory/static/js/runtime-main.57580cbd.js",
+    "runtime-main.js.map": "/afraz-malik/faculty-directory/static/js/runtime-main.57580cbd.js.map",
+    "static/js/2.e923ba15.chunk.js": "/afraz-malik/faculty-directory/static/js/2.e923ba15.chunk.js",
+    "static/js/2.e923ba15.chunk.js.map": "/afraz-malik/faculty-directory/static/js/2.e923ba15.chunk.js.map",
+    "static/js/3.513568dc.chunk.js": "/afraz-malik/faculty-directory/static/js/3.513568dc.chunk.js",
+    "static/js/3.513568dc.chunk.js.map": "/afraz-malik/faculty-directory/static/js/3.513568dc.chunk.js.map",
+    "index.html": "/afraz-malik/faculty-directory/index.html",
+    "static/css/main.e33946a1.chunk.css.map": "/afraz-malik/faculty-directory/static/css/main.e33946a1.chunk.css.map",
+    "static/js/2.e923ba15.chunk.js.LICENSE.txt": "/afraz-malik/faculty-directory/static/js/2.e923ba15.chunk.js.LICENSE.txt",
+    "static/media/App.module.css": "/afraz-malik/faculty-directory/static/media/project.5ad60960.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.57580cbd.js",
+    "static/js/2.e923ba15.chunk.js",
+    "static/css/main.e33946a1.chunk.css",
+    "static/js/main.8d9b941f.chunk.js"
+  ]
+}
