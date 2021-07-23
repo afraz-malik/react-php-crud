@@ -7,7 +7,7 @@ const initialUserState = {
 }
 export const userReducer = (state = initialUserState, action) => {
   switch (action.type) {
-    //Start
+    //Start Cases
     case 'FETCH_USER_START':
     case 'ADD_USER_IN_DB_START':
     case 'DELETE_USER':
@@ -16,7 +16,7 @@ export const userReducer = (state = initialUserState, action) => {
         error: null,
         oldUser: null,
       })
-    //Success
+    //Success Cases
     case 'FETCH_USER_SUCCESS':
       return Object.assign({}, state, {
         users: action.payload,
@@ -33,7 +33,7 @@ export const userReducer = (state = initialUserState, action) => {
         oldUser: null,
       })
 
-    //Failed
+    //Failed Cases
     case 'FETCH_USER_FAILED':
     case 'ADD_USER_IN_DB_FAILED':
     case 'DELTE_USER_FAILED':
@@ -43,7 +43,7 @@ export const userReducer = (state = initialUserState, action) => {
         oldUser: null,
       })
 
-    // old user Edit
+    // Edit Case
     case 'EDIT_USER':
       return Object.assign({}, state, { oldUser: action.payload })
     case 'CANCEL_UPDATE':

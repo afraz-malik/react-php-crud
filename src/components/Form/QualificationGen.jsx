@@ -1,16 +1,21 @@
 import React from 'react'
 import './Form.css'
 
-const QualificationGen = ({
-  institute_attended,
-  degree_tittle,
-  year_of_passing,
-  handleQual,
-  counter,
-}) => {
+const QualificationGen = ({ qual, handleQual, index, handleRemoved }) => {
   return (
-    <div>
-      {counter > 0 ? <hr className="hr2" /> : null}
+    <div className={`qual${qual.q_id}`}>
+      {index > 0 ? (
+        <div className={'addless'}>
+          <span className="span" style={{ color: 'lightgrey' }}></span>
+          <span
+            className="span3"
+            onClick={() => handleRemoved(index, qual.q_id)}
+          >
+            Remove
+          </span>
+          <hr className="hr" />
+        </div>
+      ) : null}
       <div className="row1">
         <label htmlFor="institute">
           <i className="fa fa-institution"></i> Institute Attended
@@ -19,9 +24,10 @@ const QualificationGen = ({
           type="text"
           id="institute"
           name="institute_attended"
-          placeholder="Type your institute here ..."
-          value={institute_attended}
-          onChange={(e) => handleQual(e, counter)}
+          placeholder="Institute name ..."
+          value={qual.institute_attended}
+          onChange={(e) => handleQual(e, index)}
+          required
         />
       </div>
       <div className="row">
@@ -34,9 +40,10 @@ const QualificationGen = ({
             type="text"
             id="degree"
             name="degree_tittle"
-            placeholder="Type your degree title here ..."
-            value={degree_tittle}
-            onChange={(e) => handleQual(e, counter)}
+            placeholder="Degree title here ..."
+            value={qual.degree_tittle}
+            onChange={(e) => handleQual(e, index)}
+            required
           />
         </div>
         <div className="col-50">
@@ -45,12 +52,13 @@ const QualificationGen = ({
             Passing
           </label>
           <input
-            type="text"
+            type="number"
             id="year"
             name="year_of_passing"
-            placeholder="Type your year of passing here ..."
-            value={year_of_passing}
-            onChange={(e) => handleQual(e, counter)}
+            placeholder="Year only ..."
+            value={qual.year_of_passing}
+            onChange={(e) => handleQual(e, index)}
+            required
           />
         </div>
       </div>

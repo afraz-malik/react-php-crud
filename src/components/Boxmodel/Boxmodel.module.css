@@ -60,6 +60,15 @@ td:nth-child(7) {
   background-color: RoyalBlue;
 }
 .qual {
-  /* border-bottom: 1px solid black; */
   /* text-align: center; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50px;
+}
+.qual:nth-child(odd) {
+  /* border-bottom: 1px solid black; */
+}
+.qual:nth-child(odd) {
+  /* border-top: 1px solid black; */
 }

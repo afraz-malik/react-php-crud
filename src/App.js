@@ -1,12 +1,15 @@
 import React from 'react'
 import AppCss from './App.module.css'
+
+// Redux
+import { getUser } from './redux/action'
+import { connect } from 'react-redux'
+
+// Components
 import Boxmodel from './components/Boxmodel/Boxmodel'
 import Form from './components/Form/Form'
 import Toggles from './components/Toggles/Toggles'
 import TitleBar from './components/titlebar/Titlebar'
-import { getUser } from './redux/action'
-
-import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => ({
   users: state.userReducer.users,
@@ -16,6 +19,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getUser: () => dispatch(getUser()),
 })
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -30,7 +34,7 @@ class App extends React.Component {
   }
   toggleDatabase = () => {
     this.setState({
-      database: true,
+      database: !this.state.database,
       form: false,
       searchValue: '',
     })
@@ -38,7 +42,7 @@ class App extends React.Component {
   toggleForm = () => {
     this.setState({
       database: false,
-      form: true,
+      form: !this.state.form,
     })
   }
   onSearchChange = (event) => {
@@ -47,9 +51,11 @@ class App extends React.Component {
   clearSearchValue = () => {
     this.setState({ searchValue: '' })
   }
+
   render() {
     const { form, database, searchValue } = this.state
     const { oldUser, users } = this.props
+    // console.log(users[0].qualification[0].degree_tittle)
     const filteredUsers = users.filter((users) => {
       return (
         users.fm_name.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -58,16 +64,18 @@ class App extends React.Component {
           .toLowerCase()
           .includes(searchValue.toLowerCase()) ||
         users.fm_salary.toLowerCase().includes(searchValue.toLowerCase()) ||
-        users.degree_tittle.toLowerCase().includes(searchValue.toLowerCase()) ||
-        users.year_of_passing
+        users.qualification.includes(searchValue.toLowerCase()) ||
+        users.qualification[0].degree_tittle
           .toLowerCase()
           .includes(searchValue.toLowerCase()) ||
-        users.institute_attended
+        users.qualification[0].year_of_passing
+          .toLowerCase()
+          .includes(searchValue.toLowerCase()) ||
+        users.qualification[0].institute_attended
           .toLowerCase()
           .includes(searchValue.toLowerCase())
       )
     })
-
     return (
       <div className={AppCss.App}>
         <div className={AppCss.container}>
@@ -81,10 +89,12 @@ class App extends React.Component {
           <div className={AppCss.container2}>
             <TitleBar
               database={database}
-              searchValue={this.state.searchValue}
+              form={form}
+              searchValue={searchValue}
               onSearchChange={this.onSearchChange}
               clearSearchValue={this.clearSearchValue}
             />
+
             {database ? (
               <Boxmodel toggleForm={this.toggleForm} users={filteredUsers} />
             ) : null}

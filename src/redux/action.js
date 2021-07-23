@@ -1,9 +1,11 @@
 import toast from 'cogo-toast'
-const phpUrl = 'http://localhost'
+
+const phpUrl = 'http://localhost/Faculty Directory/php files/'
 // const phpUrl = 'http://192.168.10.7'
+
 export const getUser = () => (dispatch) => {
   dispatch({ type: 'FETCH_USER_START' })
-  fetch(`${phpUrl}/php-crud/get_users.php`)
+  fetch(`${phpUrl}get_users.php`)
     .then((data) => data.json())
     .then((data) => {
       let fm = []
@@ -18,19 +20,17 @@ export const getUser = () => (dispatch) => {
         type: 'FETCH_USER_SUCCESS',
         payload: fm,
       })
-      toast.success('Fetching Success...')
+      toast.success('Database Connected')
     })
     .catch((err) => {
       dispatch({ type: 'FETCH_USER_FAILED', payload: err })
-      console.log(err)
-      toast.error('Fetching Failed')
+      toast.error('Database Connecting Failed')
       toast.info(err.message, 5000)
     })
 }
 export const addUser = (user) => (dispatch) => {
-  console.log(user)
   dispatch({ type: 'ADD_USER_IN_DB_START' })
-  fetch(`${phpUrl}/php-crud/add_user.php`, {
+  fetch(`${phpUrl}add_user.php`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -39,10 +39,9 @@ export const addUser = (user) => (dispatch) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      console.log(res)
-      toast.success('Added Data in Database')
+      toast.success('Successfully added in Database')
       dispatch({ type: 'ADD_USER_IN_DB_SUCCESS', payload: res })
-      fetch(`${phpUrl}/php-crud/get_users.php`)
+      fetch(`${phpUrl}get_users.php`)
         .then((data) => data.json())
         .then((data) => {
           let fm = []
@@ -60,22 +59,19 @@ export const addUser = (user) => (dispatch) => {
         })
         .catch((err) => {
           dispatch({ type: 'FETCH_USER_FAILED', payload: err })
-          toast.error('Auto Fetching Failed. Refreshing Now...')
-          console.log(err)
+          toast.error('Auto Fetching Failed. Refreshing Page...')
           window.location.reload()
         })
     })
     .catch((err) => {
       dispatch({ type: 'ADD_USER_IN_DB_FAILED', payload: err })
-      console.log(err)
       toast.error('Adding Data Failed')
       toast.info(err.message, 20)
     })
 }
 export const deleteUser = (user) => (dispatch) => {
-  console.log(user)
   dispatch({ type: 'DELETE_USER' })
-  fetch(`${phpUrl}/php-crud/delete_user.php`, {
+  fetch(`${phpUrl}delete_user.php`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -84,11 +80,10 @@ export const deleteUser = (user) => (dispatch) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      console.log(res)
       dispatch({ type: 'DELETE_USER_SUCCESS', payload: res })
       toast.success('Successfully Deleted')
       dispatch({ type: 'FETCH_USER_START' })
-      fetch(`${phpUrl}/php-crud/get_users.php`)
+      fetch(`${phpUrl}get_users.php`)
         .then((data) => data.json())
         .then((data) => {
           let fm = []
@@ -105,15 +100,12 @@ export const deleteUser = (user) => (dispatch) => {
           })
         })
         .catch((err) => {
-          console.log(err)
           dispatch({ type: 'FETCH_USER_FAILED', payload: err })
           toast.error('Auto Fetching Failed. Refreshing Now...')
           window.location.reload()
         })
     })
     .catch((err) => {
-      console.log(err)
-
       toast.error('Deleting User Failed')
       toast.info(err.message)
       dispatch({ type: 'DELETE_USER_FAILED', payload: err })
@@ -124,9 +116,8 @@ export const oldUser = (oldUser) => {
   return { type: 'EDIT_USER', payload: oldUser }
 }
 export const updateUser = (payload) => (dispatch) => {
-  console.log(payload)
   dispatch({ type: 'UPDATE_USER' })
-  fetch(`${phpUrl}/php-crud/update_user.php`, {
+  fetch(`${phpUrl}update_user.php`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -139,7 +130,7 @@ export const updateUser = (payload) => (dispatch) => {
       dispatch({ type: 'UPDATE_USER_SUCCESS', payload: res })
       toast.success('Information Updated')
       dispatch({ type: 'FETCH_USER_START' })
-      fetch(`${phpUrl}/php-crud/get_users.php`)
+      fetch(`${phpUrl}get_users.php`)
         .then((data) => data.json())
         .then((data) => {
           let fm = []
@@ -156,16 +147,12 @@ export const updateUser = (payload) => (dispatch) => {
           })
         })
         .catch((err) => {
-          console.log(err)
-
           dispatch({ type: 'FETCH_USER_FAILED', payload: err })
           toast.error('Auto Fetching Failed. Refreshing Now...')
           window.location.reload()
         })
     })
     .catch((err) => {
-      console.log(err)
-
       toast.error('Update Failed')
       dispatch({ type: 'UPDATE_USER_FAILED', payload: err })
     })

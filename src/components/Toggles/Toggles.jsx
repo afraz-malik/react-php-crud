@@ -1,5 +1,6 @@
 import React from 'react'
 import TogglesCss from './Toggles.module.css'
+
 const Toggles = ({ form, database, oldUser, toggleDatabase, toggleForm }) => {
   return (
     <div className={TogglesCss.toggles}>
@@ -13,7 +14,7 @@ const Toggles = ({ form, database, oldUser, toggleDatabase, toggleForm }) => {
         onClick={() => toggleDatabase()}
         style={database ? { backgroundColor: '#04aa6d', color: 'white' } : null}
       >
-        Database
+        {'Database'}
       </button>
     </div>
   )

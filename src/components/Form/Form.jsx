@@ -1,9 +1,12 @@
 import React from 'react'
 import './Form.css'
-import QualificationGen from './QualificationGen'
-import { connect } from 'react-redux'
-import { updateUser, cancelUpdate, addUser } from '../../redux/action'
+// Addons
 import update from 'react-addons-update'
+// Redux
+import { updateUser, cancelUpdate, addUser } from '../../redux/action'
+import { connect } from 'react-redux'
+// Components
+import QualificationGen from './QualificationGen'
 
 const mapDispatchToProps = (dispatch) => ({
   addUser: (user) => dispatch(addUser(user)),
@@ -11,9 +14,19 @@ const mapDispatchToProps = (dispatch) => ({
   cancelUpdate: () => dispatch(cancelUpdate()),
 })
 const initialQual = {
+  q_id: '',
   institute_attended: '',
   degree_tittle: '',
   year_of_passing: '',
+}
+const initialState = {
+  fm_name: '',
+  fm_salary: '',
+  fm_address: '',
+  fm_designation: '',
+  qualification: [initialQual],
+  counter: 1,
+  removedItem: [],
 }
 class Form extends React.Component {
   constructor(props) {
@@ -22,73 +35,78 @@ class Form extends React.Component {
       this.state = {
         ...this.props.oldUser,
         counter: this.props.oldUser.qualification.length,
+        removedItem: [],
       }
     } else {
-      this.state = {
-        fm_name: '',
-        fm_salary: '',
-        fm_address: '',
-        fm_designation: '',
-        qualification: [initialQual],
-        counter: 1,
-      }
+      this.state = initialState
     }
   }
   handleChange = (event) => {
     this.setState({ ...this.state, [event.target.name]: event.target.value })
   }
   handleQual = (event, index) => {
-    this.setState(
-      update(this.state, {
-        qualification: {
-          [index]: {
-            $set: {
-              ...this.state.qualification[index],
-              [event.target.name]: event.target.value,
+    if (!this.state.qualification[index].q_id && this.props.oldUser) {
+      this.setState(
+        update(this.state, {
+          qualification: {
+            [index]: {
+              $set: {
+                ...this.state.qualification[index],
+                [event.target.name]: event.target.value,
+                q_id: String(
+                  parseInt(this.state.qualification[index - 1].q_id) + 1
+                ),
+              },
             },
           },
-        },
-      })
-    )
+        })
+      )
+    } else {
+      this.setState(
+        update(this.state, {
+          qualification: {
+            [index]: {
+              $set: {
+                ...this.state.qualification[index],
+                [event.target.name]: event.target.value,
+              },
+            },
+          },
+        })
+      )
+    }
   }
   handleSubmit = (event) => {
     event.preventDefault()
-    // console.log(this.state)
-
     this.props.oldUser
       ? this.props.updateUser(this.state)
       : this.props.addUser(this.state)
-    this.setState({
-      fm_name: '',
-      fm_salary: '',
-      fm_address: '',
-      fm_designation: '',
-      qualification: [initialQual],
-      counter: 1,
-    })
+    this.props.toggleDatabase()
+    this.setState(initialState)
   }
   cancelUpdate = () => {
     if (this.props.oldUser) {
       this.props.cancelUpdate()
       this.props.toggleDatabase()
     } else {
-      this.setState({
-        fm_name: '',
-        fm_salary: '',
-        fm_address: '',
-        fm_designation: '',
-        qualification: [initialQual],
-        counter: 1,
-      })
+      this.setState(initialState)
     }
   }
   addCounter = () => {
-    this.setState({ counter: this.state.counter + 1 })
+    // this.setState({ counter: this.state.counter + 1 })
     this.setState((prevState) => ({
       qualification: [...prevState.qualification, initialQual],
     }))
   }
-
+  handleRemoved = (index, id) => {
+    this.state.removedItem.push(id)
+    console.log(this.state.removedItem)
+    var array = [...this.state.qualification] // make a separate copy of the array
+    if (index !== -1) {
+      array.splice(index, 1)
+      this.setState({ qualification: array })
+    }
+  }
   render() {
     return (
       <div className="container">
@@ -103,9 +121,10 @@ class Form extends React.Component {
                 type="text"
                 id="name"
                 name="fm_name"
-                placeholder="Type your name here ..."
+                placeholder="Your name here ..."
                 value={this.state.fm_name}
                 onChange={this.handleChange}
+                required
               />
               <label htmlFor="address">
                 <i className="fa fa-address-card-o"></i> Address
@@ -114,9 +133,10 @@ class Form extends React.Component {
                 type="text"
                 id="address"
                 name="fm_address"
-                placeholder="Type your address here ..."
+                placeholder="Your address here ..."
                 value={this.state.fm_address}
                 onChange={this.handleChange}
+                required
               />
               <label htmlFor="designation">
                 <i className="fa fa-briefcase"></i> Designation
@@ -125,20 +145,22 @@ class Form extends React.Component {
                 type="text"
                 id="designation"
                 name="fm_designation"
-                placeholder="Type your designation here ..."
+                placeholder="Your designation here ..."
                 value={this.state.fm_designation}
                 onChange={this.handleChange}
+                required
               />
               <label htmlFor="salary">
                 <i className="fa fa-usd" aria-hidden="true"></i> Salary
               </label>
               <input
-                type="text"
+                type="number"
                 id="salary"
                 name="fm_salary"
                 placeholder="PKR"
                 value={this.state.fm_salary}
                 onChange={this.handleChange}
+                required
               />
             </div>
 
@@ -147,18 +169,17 @@ class Form extends React.Component {
                 <h3>Qualification</h3>
               </div>
 
-              {[...Array(this.state.counter)].map((i, j) => (
-                <QualificationGen
-                  key={j}
-                  institute_attended={
-                    this.state.qualification[j].institute_attended
-                  }
-                  degree_tittle={this.state.qualification[j].degree_tittle}
-                  year_of_passing={this.state.qualification[j].year_of_passing}
-                  handleQual={this.handleQual}
-                  counter={j}
-                />
-              ))}
+              {this.state.qualification.map((qual, j) => {
+                return (
+                  <QualificationGen
+                    key={j}
+                    qual={qual}
+                    handleRemoved={this.handleRemoved}
+                    handleQual={this.handleQual}
+                    index={j}
+                  />
+                )
+              })}
               <div className={'addmore'}>
                 <span
                   className="span"
@@ -181,37 +202,22 @@ class Form extends React.Component {
               per Terms & Conditions of Faculty Directory of Multi University
             </span>
           </label>
-          {!this.props.oldUser ? (
-            <div className="cancel">
-              <input
-                type="submit"
-                value={`Save In database`}
-                className="btn "
-              />
-              <button
-                className="btn cancelbtn"
-                type="button"
-                onClick={() => this.cancelUpdate()}
-              >
-                Clear All
-              </button>
-            </div>
-          ) : (
-            <div className="cancel">
-              <input
-                type="submit"
-                value={`Update In database`}
-                className="btn "
-              />
-              <button
-                className="btn cancelbtn"
-                type="button"
-                onClick={() => this.cancelUpdate()}
-              >
-                Cancel
-              </button>
-            </div>
-          )}
+          <div className="cancel">
+            <input
+              type="submit"
+              value={
+                this.props.oldUser ? `Update In database` : `Save in database`
+              }
+              className="btn "
+            />
+            <button
+              className="btn cancelbtn"
+              type="button"
+              onClick={() => this.cancelUpdate()}
+            >
+              {this.props.oldUser ? `Cancel` : `Clear All`}
+            </button>
+          </div>
         </form>
       </div>
     )
