@@ -27,7 +27,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       database: false,
-      form: false,
+      form: true,
       searchValue: '',
     }
   }
