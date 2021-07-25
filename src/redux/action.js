@@ -1,11 +1,6 @@
 import toast from 'cogo-toast'
-let server
-
-if (process.env.NODE_ENV !== 'development') {
-  server = './php-files/'
-} else {
-  server = 'https://react-php-crud.herokuapp.com/'
-}
+const server = 'https://react-php-crud.herokuapp.com/'
+// const server = './php-files/'
 export const getUser = () => (dispatch) => {
   // toast.loading('Connecting to database ...')
   dispatch({ type: 'FETCH_USER_START' })
