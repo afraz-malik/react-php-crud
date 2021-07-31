@@ -59,7 +59,7 @@ export const QualGen = ({ qual, counter }) => {
   return (
     <div
       className={BoxmodelCss.qual}
-      style={line ? { borderTop: '1px solid black' } : null}
+      style={line ? { borderTop: '1px solid lightgrey' } : null}
     >
       {/* {counter + 1}. &emsp; */}
       {qual}

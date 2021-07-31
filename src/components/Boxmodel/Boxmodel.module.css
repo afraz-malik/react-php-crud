@@ -111,11 +111,3 @@ th {
   align-items: center;
   justify-content: center;
 }
-.qual:nth-last-child(1) {
-}
-.qual:nth-child(odd) {
-  /* border-bottom: 1px solid black; */
-}
-.qual:nth-child(odd) {
-  /* border-top: 1px solid black; */
-}

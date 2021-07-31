@@ -199,7 +199,7 @@ class Form extends React.Component {
               </div>
             </div>
           </div>
-          <label>
+          <label className="lastlabel">
             <input type="checkbox" name="sameadr" required />{' '}
             <span>
               I hereby verified the above information is correct and verified as
