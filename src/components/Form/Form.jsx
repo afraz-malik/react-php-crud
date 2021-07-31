@@ -215,7 +215,7 @@ class Form extends React.Component {
               className="btn "
             />
             <button
-              className="btn cancelbtn"
+              className="cancelbtn"
               type="button"
               onClick={() => this.cancelUpdate()}
             >

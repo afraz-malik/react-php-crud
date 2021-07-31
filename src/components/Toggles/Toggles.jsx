@@ -6,13 +6,27 @@ const Toggles = ({ form, database, oldUser, toggleDatabase, toggleForm }) => {
     <div className={TogglesCss.toggles}>
       <button
         onClick={() => toggleForm()}
-        style={form ? { backgroundColor: '#04aa6d', color: 'white' } : null}
+        style={
+          form
+            ? {
+                background: 'linear-gradient(360deg, #BA54F5 0%, #E14ECA 100%)',
+                color: 'white',
+              }
+            : null
+        }
       >
         {!oldUser ? 'Add Faculty Member' : 'Update Faculty Member'}
       </button>
       <button
         onClick={() => toggleDatabase()}
-        style={database ? { backgroundColor: '#04aa6d', color: 'white' } : null}
+        style={
+          database
+            ? {
+                background: 'linear-gradient(360deg, #BA54F5 0%, #E14ECA 100%)',
+                color: 'white',
+              }
+            : null
+        }
       >
         {'Database'}
       </button>

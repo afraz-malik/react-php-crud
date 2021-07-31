@@ -7,7 +7,7 @@
   /* padding: 10px 20px; */
   /* overflow: hidden; */
   overflow-x: auto;
-  background-color: #e67272;
+  background-color: white;
   /* width: 1000px; */
   color: black;
 }
@@ -21,50 +21,97 @@
 td {
   text-align: left;
   padding: 8px;
-  font-size: 14px;
-  border: 1px solid white;
+  font-size: 12px;
+  border-bottom: 1px solid lightgrey;
+
+  text-align: center;
+}
+.body th {
+}
+.body td:nth-child(1),
+.body th:nth-child(1) {
+  min-width: 40px;
+  text-align: center;
+}
+.body th:nth-child(2),
+.body td:nth-child(2) {
+  min-width: 100px;
+}
+.body th:nth-child(3),
+.body td:nth-child(3) {
+  min-width: 150px;
+}
+.body th:nth-child(4),
+.body td:nth-child(4) {
+  min-width: 130px;
+}
+.body th:nth-child(5),
+.body td:nth-child(5) {
+  min-width: 100px;
+}
+.body th:nth-child(6),
+.body td:nth-child(6) {
+  min-width: 100px;
+}
+.body th:nth-child(7),
+.body td:nth-child(7) {
+  min-width: 50px;
+}
+
+.body th:nth-child(8),
+.body td:nth-child(8) {
+  min-width: 200px;
+}
+
+.body th {
+  border-bottom: 1px solid black;
 }
 .body tr {
   height: 50px;
+  /* border-bottom: 1px solid black; */
 }
 tr:nth-child(even) {
   /* background-color: #f2f2f2; */
 }
 tr:hover {
-  background-color: #f5f5f5;
+  background-color: #f4f4f4;
 }
 
 th {
-  background-color: #04aa6d;
-  color: white;
-}
-td:nth-child(7) {
-  /* text-align: center; */
-}
-.btn {
-  background-color: DodgerBlue;
-  border: none;
-  color: white;
-  padding: 12px 16px;
-  font-size: 16px;
-  cursor: pointer;
+  /* background-color: #04aa6d; */
+  /* color: white; */
 }
 
-/* Darker background on mouse-over */
 .btn {
-  margin-left: 5px;
-  border-radius: 5px;
-  font-size: 12px;
+  /* background-color: DodgerBlue; */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 70px;
 }
-.btn:hover {
-  background-color: RoyalBlue;
+.btn i {
+  cursor: pointer;
+  font-size: 20px;
+  color: black;
+}
+/* Darker background on mouse-over */
+
+.btn i:hover {
+  /* background-color: RoyalBlue; */
+  color: rgb(225, 78, 202);
 }
 .qual {
   /* text-align: center; */
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  /* display: flex; */
+  /* justify-content: flex-start; */
+  /* align-items: center; */
   height: 50px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qual:nth-last-child(1) {
 }
 .qual:nth-child(odd) {
   /* border-bottom: 1px solid black; */

@@ -42,12 +42,10 @@ const RecordGen = ({ counter, user, toggleForm }) => {
         })}
       </td>
       <td>
-        <button className={BoxmodelCss.btn} onClick={() => triggerEdit()}>
-          <i className="fa fa-pencil"></i>
-        </button>
-        <button className={BoxmodelCss.btn} onClick={() => triggerDelete()}>
-          <i className="fa fa-trash"></i>
-        </button>
+        <div className={BoxmodelCss.btn}>
+          <i className="fa fa-pencil" onClick={() => triggerEdit()}></i>
+          <i className="fa fa-trash" onClick={() => triggerDelete()}></i>
+        </div>
       </td>
     </tr>
   )
@@ -63,7 +61,8 @@ export const QualGen = ({ qual, counter }) => {
       className={BoxmodelCss.qual}
       style={line ? { borderTop: '1px solid black' } : null}
     >
-      {counter + 1}. &emsp;{qual}
+      {/* {counter + 1}. &emsp; */}
+      {qual}
     </div>
   )
 }

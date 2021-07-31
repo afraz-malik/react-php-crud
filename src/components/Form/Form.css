@@ -1,7 +1,9 @@
 * {
   box-sizing: border-box;
 }
-
+i {
+  color: #ba54f5;
+}
 .row {
   display: -ms-flexbox; /* IE10 */
   display: flex;
@@ -71,7 +73,7 @@
   top: 17px;
   font-size: 11px;
   font-style: italic;
-  color: gainsboro;
+  color: rgb(225, 78, 202);
   cursor: pointer;
   transition: transform 0.2s; /* Animation */
 }
@@ -90,7 +92,7 @@
   transform: scale(1.2);
 }
 .container {
-  background-color: #e67272;
+  background-color: white;
   padding: 30px 20px 15px 20px;
   border: 1px solid lightgrey;
   /* margin-top: ; */
@@ -105,12 +107,9 @@
   border: 1px solid #ccc;
   border-radius: 3px;
 }
-.container input[type='month'] {
-  width: 100%;
-  margin-bottom: 20px;
-  /* padding: 12px; */
-  border: 1px solid #ccc;
-  border-radius: 3px;
+.container input[type='text']:focus,
+.container input[type='number']:focus {
+  border: 1px solid green;
 }
 .container input[type='checkbox'] {
   cursor: pointer;
@@ -129,7 +128,11 @@
   font-style: italic;
 }
 .btn {
-  background-color: #04aa6d;
+  background: linear-gradient(
+    360deg,
+    rgb(186, 84, 245) 0%,
+    rgb(225, 78, 202) 100%
+  );
   color: white;
   padding: 12px;
   margin: 10px 0;
@@ -141,7 +144,8 @@
 }
 
 .btn:hover {
-  background-color: #45a049;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 .cancel {
   display: grid;
@@ -149,6 +153,20 @@
   grid-gap: 20px;
 }
 .cancelbtn {
+  color: red;
+  border: 1px solid #ec250d;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid red;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+  background-color: white;
+}
+.cancelbtn:hover {
+  /* border: 1px solid red; */
+  color: white;
   background-color: red;
 }
 a {
@@ -174,7 +192,7 @@ span {
   top: 13px;
   font-size: 11px;
   font-style: italic;
-  color: gainsboro;
+  color: rgb(225, 78, 202);
   cursor: pointer;
   transition: transform 0.2s;
   padding: 2px 10px;
@@ -182,7 +200,7 @@ span {
   border-radius: 10px;
 }
 span.span3:hover {
-  border: 2px solid lightgrey;
+  border: 2px solid rgb(225, 78, 202);
 }
 .addless hr {
   margin: -3px 0px 15px 0;

@@ -1,5 +1,5 @@
 .titlebar {
-  background-color: whitesmoke;
+  background: #f5f7f8;
   color: black;
   padding: 15px 20px;
   display: flex;
@@ -30,6 +30,9 @@
   justify-content: center;
   align-items: center;
   margin: 0;
+}
+.titlebar h5:hover {
+  color: rgb(225, 78, 202);
 }
 /* .titlebar i {
     position: absolute;
