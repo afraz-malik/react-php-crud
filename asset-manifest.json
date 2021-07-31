@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/faculty-directory/static/css/main.423f4f4c.chunk.css",
-    "main.js": "/faculty-directory/static/js/main.3807a85b.chunk.js",
-    "main.js.map": "/faculty-directory/static/js/main.3807a85b.chunk.js.map",
+    "main.css": "/faculty-directory/static/css/main.616c41ca.chunk.css",
+    "main.js": "/faculty-directory/static/js/main.d02e18d7.chunk.js",
+    "main.js.map": "/faculty-directory/static/js/main.d02e18d7.chunk.js.map",
     "runtime-main.js": "/faculty-directory/static/js/runtime-main.b17ab520.js",
     "runtime-main.js.map": "/faculty-directory/static/js/runtime-main.b17ab520.js.map",
     "static/js/2.64fcc5d3.chunk.js": "/faculty-directory/static/js/2.64fcc5d3.chunk.js",
@@ -10,14 +10,14 @@
     "static/js/3.522637b6.chunk.js": "/faculty-directory/static/js/3.522637b6.chunk.js",
     "static/js/3.522637b6.chunk.js.map": "/faculty-directory/static/js/3.522637b6.chunk.js.map",
     "index.html": "/faculty-directory/index.html",
-    "static/css/main.423f4f4c.chunk.css.map": "/faculty-directory/static/css/main.423f4f4c.chunk.css.map",
+    "static/css/main.616c41ca.chunk.css.map": "/faculty-directory/static/css/main.616c41ca.chunk.css.map",
     "static/js/2.64fcc5d3.chunk.js.LICENSE.txt": "/faculty-directory/static/js/2.64fcc5d3.chunk.js.LICENSE.txt",
     "static/media/App.module.css": "/faculty-directory/static/media/project.5ad60960.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.b17ab520.js",
     "static/js/2.64fcc5d3.chunk.js",
-    "static/css/main.423f4f4c.chunk.css",
-    "static/js/main.3807a85b.chunk.js"
+    "static/css/main.616c41ca.chunk.css",
+    "static/js/main.d02e18d7.chunk.js"
   ]
 }
