@@ -1,6 +1,6 @@
 import toast from 'cogo-toast'
 // const server = 'https://react-php-crud.herokuapp.com/'
-const server = './php-files/'
+const server = 'http://localhost/Bc180404438/Project/php-files/'
 export const getUser = () => (dispatch) => {
   // toast.loading('Connecting to database ...')
   dispatch({ type: 'FETCH_USER_START' })
@@ -110,6 +110,7 @@ export const deleteUser = (user) => (dispatch) => {
       toast.error('Deleting User Failed')
       toast.info(err.message)
       dispatch({ type: 'DELETE_USER_FAILED', payload: err })
+      // window.location.reload()
     })
 }
 export const oldUser = (oldUser) => {
