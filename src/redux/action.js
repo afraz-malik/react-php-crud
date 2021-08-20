@@ -1,8 +1,8 @@
 import toast from 'cogo-toast'
-// const server = 'https://react-php-crud.herokuapp.com/'
-const server = 'http://localhost/Bc180404438/Project/php-files/'
+const server = 'https://react-php-crud.herokuapp.com/'
+// const server = 'http://localhost/Bc180404438/Project/php-files/'
 export const getUser = () => (dispatch) => {
-  // toast.loading('Connecting to database ...')
+  toast.loading('Connecting to database ...')
   dispatch({ type: 'FETCH_USER_START' })
   fetch(`${server}get_users.php`)
     .then((data) => data.json())
@@ -28,7 +28,7 @@ export const getUser = () => (dispatch) => {
     })
 }
 export const addUser = (user) => (dispatch) => {
-  // toast.loading('Adding information in database ...')
+  toast.loading('Adding information in database ...')
   dispatch({ type: 'ADD_USER_IN_DB_START' })
   fetch(`${server}add_user.php`, {
     method: 'POST',
@@ -70,7 +70,7 @@ export const addUser = (user) => (dispatch) => {
     })
 }
 export const deleteUser = (user) => (dispatch) => {
-  // toast.loading('Deleting information from database...')
+  toast.loading('Deleting information from database...')
   dispatch({ type: 'DELETE_USER' })
   fetch(`${server}delete_user.php`, {
     method: 'POST',
@@ -118,7 +118,7 @@ export const oldUser = (oldUser) => {
   return { type: 'EDIT_USER', payload: oldUser }
 }
 export const updateUser = (payload) => (dispatch) => {
-  // toast.loading('Updating informtion in database...')
+  toast.loading('Updating informtion in database...')
   dispatch({ type: 'UPDATE_USER_START' })
   fetch(`${server}update_user.php`, {
     method: 'POST',
